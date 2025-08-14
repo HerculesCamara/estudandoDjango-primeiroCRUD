@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Olá {{ nome }}</h1>
+  <p>Adicione aqui sua tarefa</p>
+
+  <a href="{% url 'tarefas:tarefas_adicionar' %}">Adicionar tarefa</a>
+
+  <h2>Suas tarefas</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Situação</th>
+        <th>Data de Criacao</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tarefa in tarefas %}
+        <tr>
+          <td>{{ tarefa.nome }}</td>
+          <td>{{ tarefa.descricao }}</td>
+          <td>{% if tarefa.concluida %}Concluida{% else %}Pendente{% endif %}</td>
+          <td>{{ tarefa.data_criacao }}</td>
+          <td><a href="{% url 'tarefas:tarefas_editar' tarefa.id %}">Editar</a></td>
+          <td><a href="{% url 'tarefas:tarefas_remover' tarefa.id %}">Remover</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
